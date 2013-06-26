@@ -8,8 +8,17 @@
     margin-bottom: 0.25em;
 }
 
+.form-title {
+    font-size: 18pt;
+}
+
 label {
     font-size: 10pt;
     margin-left: 1em;
     margin-right: 0.25em;
 }
+
+label.required:after {
+    content: "*";
+    color: red;
+} 
