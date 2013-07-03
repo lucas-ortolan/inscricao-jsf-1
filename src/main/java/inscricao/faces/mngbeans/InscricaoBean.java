@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import utfpr.faces.support.PageBean;
 
@@ -15,7 +15,7 @@ import utfpr.faces.support.PageBean;
  * @author Wilson
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class InscricaoBean extends PageBean {
     private static final Idioma[] idiomas = {
         new Idioma(1, "Inglês"),
@@ -24,6 +24,7 @@ public class InscricaoBean extends PageBean {
     };
     private Candidato candidato = new Candidato(idiomas[0]); // inicialmente ingles
     private List<SelectItem> idiomaItemList;
+    private boolean novoUsuario = true;
 
     public Candidato getCandidato() {
         return candidato;
@@ -45,6 +46,57 @@ public class InscricaoBean extends PageBean {
     public String confirmaAction() {
         candidato.setDataHora(new Date());
         candidato.setIdioma(idiomas[candidato.getIdioma().getCodigo()-1]);
-        return "confirma";
+        ListaCandidatosBean listaCandidatos = (ListaCandidatosBean) getBean("listaCandidatosBean");
+        if (novoUsuario) {            
+            if (candidatoValido()) {
+                listaCandidatos.adicionarCandidato(candidato);
+                return "confirma";
+            } else {
+                error("Cpf já cadastrado!");
+                return null;
+            }
+        } else {
+            listaCandidatos.alterarCandidato(candidato);
+            novoUsuario = true;
+            return "confirma";
+        }
+        
+    }
+    
+    public String alterarUsuario() {
+        novoUsuario = false;
+        return "inscricao";
+    }
+    
+    public String getAlterar() {
+        if(novoUsuario) {
+            return "false";
+        } else {
+            return "true";
+        }
+    }
+        
+    public boolean candidatoValido() {
+        ListaCandidatosBean listaCandidatos = (ListaCandidatosBean) getBean("listaCandidatosBean");
+        for (Candidato cand : listaCandidatos.getListaCandidatos()) {
+            if (candidato.getCpf() == cand.getCpf()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public String novoAlterarUsuario() {
+        if (novoUsuario) {
+            return "Confirmar inscrição";
+        } else {
+            return "Alterar inscrição";
+        }
+    }
+    
+    public String limparCamposAction() {
+        novoUsuario = true;
+        candidato = new Candidato(idiomas[0]);
+        return "inscricao";
     }
 }

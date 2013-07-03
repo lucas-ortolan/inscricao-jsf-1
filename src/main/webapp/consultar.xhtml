@@ -17,18 +17,15 @@
 
     <ui:define name="content">
         <h:form>
-            <div class="titulo-form">LOGIN</div>
+            <div class="titulo-form">CONSULTAR</div>
             <h:panelGroup style="text-align: left; margin-bottom: 10px;" layout="block">
                 <h:panelGroup styleClass="form-block" layout="block">
-                    <h:outputLabel for="login" value="Login"/>
-                    <h:inputText id="login" value="#{loginBean.login.login}" size="30" label="Login" required="true"/>
-                </h:panelGroup>
-                <h:panelGroup styleClass="form-block" layout="block">
-                    <h:outputLabel for="senha" value="Senha"/>
-                    <h:inputText id="senha" value="#{loginBean.login.senha}" size="30" label="Senha" required="true"/>
+                    <h:outputLabel for="cpf" value="Informe o CPF do inscrito:"/>
+                    <h:inputText id="cpf" value="#{consultarBean.cpf}" size="30" label="Cpf" required="true"/>
                 </h:panelGroup>
             </h:panelGroup>
-            <h:commandButton value="Login" action="#{loginBean.confirmaAction}"/>
+            <h:commandButton value="Pesquisar" action="#{consultarBean.pesquisaAction}"/>
+            <h:commandButton value="Menu Inicial" action="menuInicial"/>
             <h:messages/>
         </h:form>
     </ui:define>
