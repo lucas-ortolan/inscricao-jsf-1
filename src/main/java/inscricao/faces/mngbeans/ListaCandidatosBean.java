@@ -19,7 +19,7 @@ public class ListaCandidatosBean implements Serializable {
     public ListaCandidatosBean() {
         listaCandidatos = new ArrayList<Candidato>();
     }
-    
+
     public void setListaCandidatos(ArrayList<Candidato> listaCandidatos) {
         this.listaCandidatos = listaCandidatos;
     }
@@ -56,6 +56,12 @@ public class ListaCandidatosBean implements Serializable {
                     return;
                 }
             }
+        }
+    }
+
+    public void removerCandidato(Candidato candidato) {
+        if (listaCandidatos != null) {
+            listaCandidatos.remove(candidato);
         }
     }
 }

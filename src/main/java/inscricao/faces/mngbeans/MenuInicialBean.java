@@ -4,7 +4,6 @@
  */
 package inscricao.faces.mngbeans;
 
-import inscricao.entity.Login;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import utfpr.faces.support.PageBean;
@@ -23,5 +22,9 @@ public class MenuInicialBean extends PageBean {
     
     public String consultarAction() {
         return "consultar";
+    }
+    
+    public String editarAction() {
+        return "editar";
     }
 }
